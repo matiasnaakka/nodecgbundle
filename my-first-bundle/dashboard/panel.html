@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<style>
+		.monospace {
+			font-family: monospace;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="root"></div>
+	<h1>Movie Panel</h1>
+	<form id="movieForm">
+		<label for="currentMovie">Current Movie</label>
+		<input type="text" id="currentMovie" placeholder="Enter current movie name" />
+
+		<label for="nextMovie">Next Movie</label>
+		<input type="text" id="nextMovie" placeholder="Enter next movie name" />
+
+		<button type="submit">Update Movies</button>
+	</form>
+
+	<script type="module" src="./panel.js"></script>
+	<script>
+		const currentMovieRep = nodecg.Replicant("currentMovieReplicant");
+		const nextMovieRep = nodecg.Replicant("nextMovieReplicant");
+
+		const currentMovieInput = document.getElementById("currentMovie");
+		const nextMovieInput = document.getElementById("nextMovie");
+		const movieForm = document.getElementById("movieForm");
+
+		currentMovieRep.on("change", (newValue) => {
+			currentMovieInput.value = newValue;
+		});
+
+		nextMovieRep.on("change", (newValue) => {
+			nextMovieInput.value = newValue;
+		});
+
+		movieForm.addEventListener("submit", (e) => {
+			e.preventDefault();
+			currentMovieRep.value = currentMovieInput.value;
+			nextMovieRep.value = nextMovieInput.value;
+		});
+	</script>
+
+</body>
+
+</html>
